@@ -1,0 +1,55 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.timer-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#timer-display {
+    font-size: 4em;
+    margin-bottom: 20px;
+    color: #ff6347; /* Tomato color */
+}
+
+.controls button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+#start-btn {
+    background-color: #4CAF50; /* Green */
+}
+
+#pause-btn {
+    background-color: #ffc107; /* Amber */
+}
+
+#reset-btn {
+    background-color: #f44336; /* Red */
+}
+
+#status {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #555;
+}
