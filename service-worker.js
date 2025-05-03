@@ -6,7 +6,8 @@ const urlsToCache = [
   '/script.js',
   '/manifest.json',
   '/icons/icon-192x192.svg',
-  '/icons/icon-512x512.svg'
+  '/icons/icon-512x512.svg',
+  'assets/notification.mp3'
 ];
 
 // Install a service worker
