@@ -5,7 +5,7 @@ const resetBtn = document.getElementById('reset-btn');
 const statusDisplay = document.getElementById('status');
 
 let timer;
-let timeLeft = 1 * 60; // 1 minute in seconds
+let timeLeft = 30; // 30 seconds
 let isPaused = true;
 let isWorkSession = true;
 
@@ -26,7 +26,7 @@ function startTimer() {
                 clearInterval(timer);
                 // Switch between work and break sessions
                 isWorkSession = !isWorkSession;
-                timeLeft = isWorkSession ? 1 * 60 : 5 * 60; // 1 min work, 5 min break
+                timeLeft = isWorkSession ? 30 : 5 * 60; // 30 sec work, 5 min break
                 statusDisplay.textContent = isWorkSession ? '工作' : '休息';
                 // Play notification sound
                 const notificationSound = new Audio('assets/notification.mp3');
@@ -50,7 +50,7 @@ function resetTimer() {
     isPaused = true;
     clearInterval(timer);
     isWorkSession = true;
-    timeLeft = 1 * 60;
+    timeLeft = 30;
     statusDisplay.textContent = '工作';
     updateDisplay();
 }
