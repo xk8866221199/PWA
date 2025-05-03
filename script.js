@@ -31,7 +31,6 @@ function startTimer() {
                 // Play notification sound
                 const notificationSound = new Audio('assets/notification.mp3');
                 notificationSound.play();
-                alert(isWorkSession ? '休息结束，开始工作！' : '工作结束，开始休息！');
                 updateDisplay();
                 // Automatically start the next session or pause
                 // For simplicity, we'll pause here. User needs to press start again.
