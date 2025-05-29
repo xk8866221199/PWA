@@ -1,55 +1,491 @@
+:root {
+    --bg-color: #F8F9FA;
+    --text-color: #343A40;
+    --secondary-text-color: #495057; /* For less prominent text like labels, status */
+    --tertiary-text-color: #6C757D; /* For things like session counter */
+    --primary-accent-color: #007BFF;
+    --primary-accent-hover-color: #0056b3;
+    --secondary-bg-color: #FFFFFF; /* for containers */
+    --border-color: #CED4DA;
+    --input-bg-color: #FFFFFF;
+    --input-border-color: #CED4DA;
+    --input-focus-border-color: #007BFF;
+    --input-focus-shadow-color: rgba(0, 123, 255, 0.25);
+    --button-bg-color: #E9ECEF;
+    --button-text-color: #343A40;
+    --button-border-color: #CED4DA;
+    --button-hover-bg-color: #DEE2E6;
+    --button-hover-border-color: #ADB5BD;
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    --shadow-hover-color: rgba(0, 0, 0, 0.08);
+    --shadow-active-color: rgba(0,0,0,0.05); /* Same as normal for now */
+    --range-track-color: #DEE2E6;
+    --range-thumb-color: #007BFF;
+    --task-item-border-color: #E9ECEF;
+    --task-item-hover-bg-color: #F8F9FA;
+    --task-item-completed-text-color: #ADB5BD;
+    --task-item-completed-bg-color: #E9ECEF;
+
+    /* Specific button colors - these might not need dark mode overrides if their base is fine */
+    --start-btn-bg: #28a745;
+    --start-btn-text: white;
+    --start-btn-border: #28a745;
+    --start-btn-hover-bg: #218838;
+    --start-btn-hover-border: #1e7e34;
+
+    --pause-btn-bg: #ffc107; /* Though hidden, variables are good practice */
+    --pause-btn-text: #212529;
+    --pause-btn-border: #ffc107;
+    --pause-btn-hover-bg: #e0a800;
+    --pause-btn-hover-border: #d39e00;
+
+    --reset-btn-bg: #dc3545;
+    --reset-btn-text: white;
+    --reset-btn-border: #dc3545;
+    --reset-btn-hover-bg: #c82333;
+    --reset-btn-hover-border: #bd2130;
+
+    --skip-btn-bg: #6C757D;
+    --skip-btn-text: white;
+    --skip-btn-border: #6C757D;
+    --skip-btn-hover-bg: #5a6268;
+    --skip-btn-hover-border: #545b62;
+
+    --add-task-btn-bg: #007BFF;
+    --add-task-btn-text: white;
+    --add-task-btn-border: #007BFF;
+    --add-task-btn-hover-bg: #0056b3;
+    --add-task-btn-hover-border: #0056b3;
+}
+
+body.dark-mode {
+    --bg-color: #121212; /* Very dark grey, almost black */
+    --text-color: #E0E0E0; /* Light grey for primary text */
+    --secondary-text-color: #B0B0B0; /* Slightly dimmer for labels */
+    --tertiary-text-color: #888888; /* For session counter etc. */
+    --primary-accent-color: #00BFFF; /* Deep sky blue - brighter for dark mode */
+    --primary-accent-hover-color: #009ACD; /* Darker shade of sky blue */
+    --secondary-bg-color: #1E1E1E; /* Dark grey for containers */
+    --border-color: #444444; /* Mid-grey for borders */
+    --input-bg-color: #2C2C2C; /* Darker grey for input backgrounds */
+    --input-border-color: #555555;
+    --input-focus-border-color: #00BFFF;
+    --input-focus-shadow-color: rgba(0, 191, 255, 0.25);
+    --button-bg-color: #333333;
+    --button-text-color: #E0E0E0;
+    --button-border-color: #555555;
+    --button-hover-bg-color: #444444;
+    --button-hover-border-color: #777777;
+    --shadow-color: rgba(0, 0, 0, 0.2); /* Darker shadows might be less visible, adjust if needed */
+    --shadow-hover-color: rgba(0, 0, 0, 0.25);
+    --shadow-active-color: rgba(0,0,0,0.2);
+    --range-track-color: #555555;
+    --range-thumb-color: #00BFFF;
+    --task-item-border-color: #3A3A3A;
+    --task-item-hover-bg-color: #2A2A2A;
+    --task-item-completed-text-color: #777777;
+    --task-item-completed-bg-color: #2C2C2C;
+
+    /* Specific button colors can also be overridden if desired, e.g. for better contrast */
+    /* For now, using the same ones as light mode, assuming they are fine */
+}
+
+
+/* General Body Styles */
 body {
-    font-family: sans-serif;
+    font-family: 'Open Sans', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f0f0f0;
+    background-color: var(--bg-color);
+    margin: 0;
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
 }
 
+/* Timer Container Styles */
 .timer-container {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--secondary-bg-color);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+
+/* Heading Styles */
+h1 {
+    color: var(--text-color);
+    margin-bottom: 30px;
+    font-size: 2em;
+    font-weight: 600;
+}
+
+/* Timer Display Styles */
+#timer-display {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 4.5em;
+    margin-bottom: 30px;
+    color: var(--primary-accent-color);
+    font-weight: 700;
+}
+
+/* Controls Container Styles */
+.controls {
+    margin-bottom: 30px;
+}
+
+/* General Button Styles */
+.controls button {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: 1px solid var(--button-border-color);
+    padding: 12px 24px;
+    margin: 8px 6px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    outline: none;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.controls button:hover {
+    border-color: var(--button-hover-border-color);
+    background-color: var(--button-hover-bg-color);
+    box-shadow: 0 2px 6px var(--shadow-hover-color);
+}
+
+.controls button:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px var(--shadow-active-color);
+}
+
+/* Specific Button Styles - Start */
+#start-btn {
+    background-color: var(--start-btn-bg);
+    color: var(--start-btn-text);
+    border-color: var(--start-btn-border);
+}
+
+#start-btn:hover {
+    background-color: var(--start-btn-hover-bg);
+    border-color: var(--start-btn-hover-border);
+    color: var(--start-btn-text); /* Keep text color consistent */
+}
+
+/* Specific Button Styles - Pause (Hidden) */
+#pause-btn {
+    background-color: var(--pause-btn-bg);
+    color: var(--pause-btn-text);
+    border-color: var(--pause-btn-border);
+}
+
+#pause-btn:hover {
+    background-color: var(--pause-btn-hover-bg);
+    border-color: var(--pause-btn-hover-border);
+    color: var(--pause-btn-text);
+}
+
+/* Specific Button Styles - Reset */
+#reset-btn {
+    background-color: var(--reset-btn-bg);
+    color: var(--reset-btn-text);
+    border-color: var(--reset-btn-border);
+}
+
+#reset-btn:hover {
+    background-color: var(--reset-btn-hover-bg);
+    border-color: var(--reset-btn-hover-border);
+    color: var(--reset-btn-text);
+}
+
+/* Status Display Styles */
+#status {
+    margin-top: 20px;
+    font-size: 1.3em;
+    color: var(--secondary-text-color);
+    font-weight: 500;
+}
+
+/* Session Counter Display Styles */
+#session-counter-display {
+    font-size: 1em;
+    color: var(--tertiary-text-color);
+    margin-top: -15px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+/* Settings Container Styles */
+.settings-container {
+    background-color: var(--secondary-bg-color);
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    margin-top: 30px;
+    width: 90%;
+    max-width: 400px;
+    text-align: left;
+}
+
+.settings-container h2 {
+    color: var(--text-color);
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-bottom: 20px;
     text-align: center;
 }
 
-h1 {
-    color: #333;
-    margin-bottom: 20px;
+.setting {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
-#timer-display {
-    font-size: 4em;
-    margin-bottom: 20px;
-    color: #ff6347; /* Tomato color */
+.setting label {
+    font-size: 0.95em;
+    color: var(--secondary-text-color);
+    margin-bottom: 5px;
+    font-weight: 500;
 }
 
-.controls button {
-    padding: 10px 20px;
-    margin: 0 5px;
+.setting input[type="number"] {
+    font-family: 'Open Sans', sans-serif;
+    padding: 8px 12px;
+    border: 1px solid var(--input-border-color);
+    background-color: var(--input-bg-color);
+    color: var(--text-color);
+    border-radius: 4px;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+    -moz-appearance: textfield;
+}
+
+.setting input[type="number"]::-webkit-outer-spin-button,
+.setting input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.setting input[type="number"]:focus {
+    outline: none;
+    border-color: var(--input-focus-border-color);
+    box-shadow: 0 0 0 0.2rem var(--input-focus-shadow-color);
+}
+
+/* Styling for checkbox in settings */
+/* Checkbox styling for dark mode might need specific adjustments if default is hard to see */
+.setting input[type="checkbox"] {
+    width: auto;
+    margin-left: 5px;
+    height: 1em;
+    vertical-align: middle;
+    cursor: pointer;
+    /* Consider filter: invert(1) brightness(0.8) for dark mode if needed for visibility */
+}
+
+/* Responsive adjustments for settings */
+@media (min-width: 400px) {
+    .setting {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .setting label {
+        margin-bottom: 0;
+        margin-right: 10px;
+        flex-basis: 60%;
+    }
+
+    .setting input[type="number"] {
+        width: auto;
+        flex-basis: 35%;
+    }
+    .setting input[type="checkbox"] {
+        flex-basis: auto;
+        margin-left: 10px;
+    }
+    .setting select,
+    .setting input[type="range"] {
+        flex-basis: 35%;
+        width: auto;
+    }
+}
+
+/* Style for select dropdown */
+.setting select {
+    font-family: 'Open Sans', sans-serif;
+    padding: 8px 12px;
+    border: 1px solid var(--input-border-color);
+    background-color: var(--input-bg-color);
+    color: var(--text-color);
+    border-radius: 4px;
     font-size: 1em;
     cursor: pointer;
-    border: none;
+    outline: none;
+}
+
+.setting select:focus {
+    border-color: var(--input-focus-border-color);
+    box-shadow: 0 0 0 0.2rem var(--input-focus-shadow-color);
+}
+
+/* Style for range input */
+.setting input[type="range"] {
+    padding: 0;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: var(--range-track-color);
     border-radius: 5px;
-    color: white;
+    outline: none;
 }
 
-#start-btn {
-    background-color: #4CAF50; /* Green */
+.setting input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--range-thumb-color);
+    border-radius: 50%;
+    cursor: pointer;
 }
 
-#pause-btn {
-    background-color: #ffc107; /* Amber */
+.setting input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--range-thumb-color);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
 }
 
-#reset-btn {
-    background-color: #f44336; /* Red */
+/* Specific Button Styles - Skip */
+#skip-btn {
+    background-color: var(--skip-btn-bg);
+    color: var(--skip-btn-text);
+    border-color: var(--skip-btn-border);
 }
 
-#status {
-    margin-top: 20px;
-    font-size: 1.2em;
-    color: #555;
+#skip-btn:hover {
+    background-color: var(--skip-btn-hover-bg);
+    border-color: var(--skip-btn-hover-border);
+    color: var(--skip-btn-text);
+}
+
+/* Dark mode toggle button style */
+#dark-mode-toggle {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: 1px solid var(--button-border-color);
+    /* padding, margin, etc., should be inherited from .controls button or .setting button if applicable */
+    /* Add specific styling if it's not in .controls, or if it needs to differ */
+     padding: 8px 12px; /* Example if not in .controls */
+     margin-left: auto; /* If it's the only element after label */
+}
+#dark-mode-toggle:hover {
+    background-color: var(--button-hover-bg-color);
+    border-color: var(--button-hover-border-color);
+}
+
+
+/* Task Management Container Styles */
+.task-container {
+    background-color: var(--secondary-bg-color);
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    margin-top: 30px;
+    width: 90%;
+    max-width: 400px;
+    text-align: left;
+}
+
+.task-container h2 {
+    color: var(--text-color);
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.add-task {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#task-input {
+    flex-grow: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--input-border-color);
+    background-color: var(--input-bg-color);
+    color: var(--text-color);
+    border-radius: 4px 0 0 4px;
+    font-size: 1em;
+    box-sizing: border-box;
+    outline: none;
+}
+
+#task-input:focus {
+    border-color: var(--input-focus-border-color);
+    box-shadow: 0 0 0 0.2rem var(--input-focus-shadow-color);
+}
+
+#add-task-btn {
+    background-color: var(--add-task-btn-bg);
+    color: var(--add-task-btn-text);
+    border: 1px solid var(--add-task-btn-border);
+    padding: 8px 15px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+    transition: background-color 0.2s ease-in-out;
+    outline: none;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+#add-task-btn:hover {
+    background-color: var(--add-task-btn-hover-bg);
+    border-color: var(--add-task-btn-hover-border);
+}
+
+#task-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+#task-list li {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--task-item-border-color);
+    font-size: 1em;
+    color: var(--secondary-text-color);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.1s ease-in-out;
+}
+
+#task-list li:last-child {
+    border-bottom: none;
+}
+
+#task-list li:hover {
+    background-color: var(--task-item-hover-bg-color);
+}
+
+#task-list li.completed {
+    text-decoration: line-through;
+    color: var(--task-item-completed-text-color);
+    background-color: var(--task-item-completed-bg-color);
 }
